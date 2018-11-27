@@ -1,9 +1,12 @@
 package jp.ac.uryukyu.ie.e185744;
 import java.util.Scanner;
 
+
+/**
+ * キャラのステータスを作るクラス
+ */
 public class LivingThing {
 
-    //変数定義
     private String name;
     private int hitPoint; //HP
     private int maxHP;
@@ -15,7 +18,14 @@ public class LivingThing {
     private boolean dead;
 
 
-
+    /**
+     * 変数達
+     * @param name      キャラクターの名前
+     * @param maximumHP ヒットポイント(体力)
+     * @param attack    攻撃力
+     * @param defence   防御力
+     * @param maximumMP マジックポイント(魔力)
+     */
     LivingThing (String name, int maximumHP, int attack , int defence, int maximumMP) {
         int pulus = (int) (Math.random() * 4);
 
@@ -31,33 +41,52 @@ public class LivingThing {
         System.out.printf("攻撃力hは%dで、防御力は%dです。\n",this.attack, this.defence);
     }
 
-    //カプセル化HP
+    /**
+     * HPのgetter
+     * @return  HP
+     */
     int getHitPoint() {
         return hitPoint;
     }
 
+    /**
+     * HPのsetter
+     * @param hitPoint
+     */
     void setHitPoint(int hitPoint) {
         this.hitPoint = hitPoint;
     }
 
-    //カプセル化死亡切り替え
+
+    /**
+     * 死亡に関して
+     * @return  dead
+     */
     boolean isDead() {
         return dead;
     }
 
+    /**
+     * 死亡に関してsetter
+     * @param dead
+     */
     void setDead(boolean dead) {
         this.dead = dead;
     }
 
-    //カプセル化名前
+    /**
+     * 名前setter
+     * @return name
+     */
     String getName(){
         return name;
     }
 
-    /*-------------------------------------------------------*/
-    //攻撃メソッド                                            //
-    //ダメージは　0~攻撃力ランダム＋　(攻撃力/3) ー　(防御力/2)    //
-    /*------------------------------------------------------*/
+
+    /**
+     * 攻撃メソッド
+     * @param opponent　敵の事
+     */
     public void attack(LivingThing opponent){
         if(!isDead()) {
             int protect = opponent.defence / 2;
@@ -73,9 +102,10 @@ public class LivingThing {
         }
     }
 
-    /*-------------------------------------------------------*/
-    //死亡判定                                                //
-    /*-------------------------------------------------------*/
+    /**
+     * 死亡判定
+     * @param damage　敵が与えたダメージ
+     */
     public void wounded(int damage){
         this.hitPoint -= damage;
         if( LivingThing.this.hitPoint < 1 ) {
@@ -84,11 +114,10 @@ public class LivingThing {
         }
     }
 
-
-    /*-------------------------------------------------------*/
-    //回復メソッド
-    // MP3消費。1~6の回復量
-    /*-------------------------------------------------------*/
+    /**
+     * 回復メソッド
+     * @param opponent　敵
+     */
     public void heal(LivingThing opponent){
 
         int heal = (int) (Math.random() * 5) +1;
@@ -109,25 +138,30 @@ public class LivingThing {
         }
     }
 
-
-    /*-------------------------------------------------------*/
-    //防御メソッド
-    //防御時、防御力2倍。
-    /*-------------------------------------------------------*/
+    /**
+     *防御メソッド
+     *防御時、防御力2倍。
+     * @param opponemt 敵
+     */
     void protecthion(LivingThing opponemt){
         this.defence = this.defence * 2;
         System.out.printf("%sは防御している！\n",this.name);
     }
 
-    //２倍した防御力を戻す。
+    /**
+     * 2倍した防御力を戻す。
+     */
     void reset_defence(){
         this.defence = this.defence_1;
     }
 
-    /*-------------------------------------------------------*/
-    //行動選択
-    // "1.攻撃　2.防御　3.呪文"選べる。
-    /*-------------------------------------------------------*/
+    /**
+     *行動選択
+     *"1.攻撃　2.防御　3.呪文"選べる。
+     * @param number    切り替え用    1の時     呪文選択の表示になる。
+     *                              その他     行動選択の表示になる。
+     * @return  selectionメソッドに生かすためにuserが選んだ行動番号を返す。
+     */
     private int user_input(int number){
 
         int input;
@@ -144,9 +178,10 @@ public class LivingThing {
         return input;
     }
 
-    /*-------------------------------------------------------*/
-    //行動分岐実行。                                           //
-    /*-------------------------------------------------------*/
+    /**
+     * 行動選択分岐実行メソッド
+     * @param opponent　敵
+     */
     public void selection(LivingThing opponent){
         int select = user_input(0);
         Skill skill = new Skill(magicPoint,name);
