@@ -23,7 +23,7 @@ test {
 
 jar {
     manifest {
-        attributes  "Main-Class": "jp.ac.uryukyu.ie.e185744.Example"
+        attributes  "Main-Class": "jp.ac.uryukyu.ie.e185744.Main"
         attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
     }
 }
